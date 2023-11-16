@@ -5,6 +5,14 @@ const app = express();
 const pagesFolder = "./pages/";
 const fs = require("fs");
 
+const iteratePages = (cb) => fs.readdir(pagesFolder, cb);
+
+iteratePages((err, files) => {
+	files.forEach((file) => {
+		console.log(file);
+	});
+});
+
 app.listen(3000, () => {
 	console.log("Application started and Listening on port 3000");
 });
