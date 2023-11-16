@@ -20,6 +20,13 @@ app.listen(3000, () => {
 // serve your css as static
 app.use(express.static(__dirname + "/styles/"));
 
-app.get("/:page", (req, res) => {
-	res.sendFile(__dirname + "/pages/index.html");
+app.get("/:page?", (req, res) => {
+	console.log(req.params.page);
+	res.sendFile(
+		!req.params.page
+			? __dirname + "/pages/index.html"
+			: fs.existsSync(__dirname + "/pages/" + req.params.page + ".html")
+			? __dirname + "/pages/" + req.params.page + ".html"
+			: __dirname + "/pages/404.html"
+	);
 });
